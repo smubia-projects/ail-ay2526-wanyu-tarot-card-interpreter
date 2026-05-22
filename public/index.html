@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarot Card Interpreter</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+  font-family: Georgia, serif;
+  background: radial-gradient(circle at top, #1a1a1a 0%, #090909 45%, #000000 100%);
+  color: #f4e8c1;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+    .screen {
+      min-height: 100vh;
+      width: 100%;
+      display: none;
+      padding: 32px 20px;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1250px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: #f6d98f;
+      text-shadow: 0 0 12px rgba(246, 217, 143, 0.25);
+    }
+
+    .subtitle {
+      color: #cbb98c;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .instruction {
+      color: #ead9a6;
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .question-box {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    input {
+      width: min(760px, 92%);
+      padding: 15px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(246, 217, 143, 0.18);
+      background: rgba(255, 255, 255, 0.05);
+      color: #f8f0d5;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: inset 0 0 8px rgba(255,255,255,0.03);
+    }
+
+    input::placeholder {
+      color: #a59570;
+    }
+
+    .selection-status {
+      margin-bottom: 20px;
+      color: #f3e5bc;
+      font-size: 1rem;
+      min-height: 24px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+      gap: 18px;
+      margin: 0 auto;
+      max-width: 1100px;
+    }
+
+    .card {
+      aspect-ratio: 2 / 3.2;
+      border-radius: 14px;
+      position: relative;
+      background: linear-gradient(145deg, #0f0f12, #1d1b2e);
+      border: 1px solid rgba(255, 223, 140, 0.15);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 30%),
+        radial-gradient(circle at 70% 80%, rgba(130,90,255,0.12), transparent 35%),
+        linear-gradient(135deg, rgba(255,215,120,0.08), transparent 60%);
+      pointer-events: none;
+    }
+
+    .card::after {
+      content: "✦";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: rgba(245, 220, 150, 0.75);
+      text-shadow: 0 0 12px rgba(245, 220, 150, 0.35);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 223, 140, 0.45);
+      box-shadow:
+        0 16px 30px rgba(0, 0, 0, 0.5),
+        0 0 16px rgba(160, 110, 255, 0.28),
+        0 0 24px rgba(255, 220, 140, 0.18);
+    }
+
+    .card.selected {
+      transform: translateY(-12px);
+      border-color: rgba(255, 223, 140, 0.85);
+      box-shadow:
+        0 18px 34px rgba(0, 0, 0, 0.6),
+        0 0 18px rgba(255, 223, 140, 0.45),
+        0 0 28px rgba(130, 90, 255, 0.25);
+    }
+
+    .card.selected:hover {
+      transform: translateY(-12px);
+    }
+
+    .card.locked {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .card.locked:hover {
+      transform: none;
+      border-color: rgba(255, 223, 140, 0.15);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+    }
+
+    .card-label {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      font-size: 0.72rem;
+      color: rgba(240, 230, 200, 0.72);
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    .center-panel {
+      max-width: 850px;
+      width: min(850px, 92%);
+      margin: 0 auto;
+      padding: 34px 28px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(246, 217, 143, 0.16);
+      box-shadow:
+        0 0 32px rgba(0, 0, 0, 0.38),
+        0 0 18px rgba(115, 86, 255, 0.12);
+      text-align: center;
+    }
+
+    .thinking-text {
+      font-size: 1.45rem;
+      color: #f0dfb0;
+      letter-spacing: 1px;
+      text-shadow: 0 0 14px rgba(240, 223, 176, 0.18);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    .dots::after {
+      content: "";
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+
+    .reading-title {
+      font-size: 2rem;
+      color: #f6d98f;
+      margin-bottom: 20px;
+      text-shadow: 0 0 12px rgba(246, 217, 143, 0.2);
+    }
+
+    .reading-text {
+      color: #f6edd3;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      text-align: left;
+      font-size: 1rem;
+    }
+
+    .restart-btn {
+      margin-top: 24px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6d4aff, #3e1f7a);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(109, 74, 255, 0.25);
+    }
+
+    .restart-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .error-text {
+      margin-top: 14px;
+      color: #ffcfb3;
+      min-height: 24px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.75; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes dots {
+      0% { content: ""; }
+      25% { content: "."; }
+      50% { content: ".."; }
+      75% { content: "..."; }
+      100% { content: ""; }
+    }
+
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 2.1rem;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .thinking-text {
+        font-size: 1.2rem;
+      }
+
+      .reading-title {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Selection screen -->
+  <section class="screen active" id="selectionScreen">
+    <div class="container">
+      <h1>Tarot Card Interpreter</h1>
+      <p class="subtitle">Whispers from the unknown await your question.</p>
+      <p class="instruction">Choose 3 cards, one by one.</p>
+
+      <div class="question-box">
+        <input id="question" type="text" placeholder="Ask your tarot question..." />
+      </div>
+
+      <div class="selection-status" id="selectionStatus">Selected: 0 / 3</div>
+      <div class="error-text" id="errorText"></div>
+
+      <div class="card-grid" id="cardGrid"></div>
+    </div>
+  </section>
+
+  <!-- Thinking screen -->
+  <section class="screen" id="thinkingScreen">
+    <div class="center-panel">
+      <div class="thinking-text">
+        Tarot spirits are thinking<span class="dots"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reading screen -->
+  <section class="screen" id="readingScreen">
+    <div class="center-panel">
+      <div class="reading-title">Your Reading</div>
+      <div class="reading-text" id="readingText"></div>
+      <button class="restart-btn" onclick="restartReading()">Draw Again</button>
+    </div>
+  </section>
+
+  <script>
+    const totalCards = 22;
+    const maxSelected = 3;
+
+    const selectionScreen = document.getElementById("selectionScreen");
+    const thinkingScreen = document.getElementById("thinkingScreen");
+    const readingScreen = document.getElementById("readingScreen");
+
+    const cardGrid = document.getElementById("cardGrid");
+    const selectionStatus = document.getElementById("selectionStatus");
+    const errorText = document.getElementById("errorText");
+    const readingText = document.getElementById("readingText");
+    const questionInput = document.getElementById("question");
+
+    let selectedCards = [];
+    let isTransitioning = false;
+
+    function showScreen(screen) {
+      [selectionScreen, thinkingScreen, readingScreen].forEach(s => {
+        s.classList.remove("active");
+      });
+      screen.classList.add("active");
+    }
+
+    function updateSelectionUI() {
+      selectionStatus.textContent = `Selected: ${selectedCards.length} / 3`;
+
+      const allCards = document.querySelectorAll(".card");
+      allCards.forEach(card => {
+        const cardNumber = Number(card.dataset.cardNumber);
+        const isSelected = selectedCards.includes(cardNumber);
+
+        card.classList.toggle("selected", isSelected);
+
+        if (!isSelected && selectedCards.length >= maxSelected) {
+          card.classList.add("locked");
+        } else {
+          card.classList.remove("locked");
+        }
+      });
+    }
+
+    function buildCards() {
+      cardGrid.innerHTML = "";
+
+      for (let i = 1; i <= totalCards; i++) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.cardNumber = i;
+        card.innerHTML = `<div class="card-label">Arcana ${i}</div>`;
+
+        card.addEventListener("click", async () => {
+          if (isTransitioning) return;
+
+          const cardNumber = Number(card.dataset.cardNumber);
+          const alreadySelected = selectedCards.includes(cardNumber);
+
+          errorText.textContent = "";
+
+          if (alreadySelected) {
+            selectedCards = selectedCards.filter(num => num !== cardNumber);
+            updateSelectionUI();
+            return;
+          }
+
+          if (selectedCards.length >= maxSelected) return;
+
+          selectedCards.push(cardNumber);
+          updateSelectionUI();
+
+          if (selectedCards.length === 3) {
+            const question = questionInput.value.trim();
+
+            if (!question) {
+              errorText.textContent = "Ask your tarot question before choosing the final card.";
+              selectedCards.pop();
+              updateSelectionUI();
+              return;
+            }
+
+            isTransitioning = true;
+            await beginReading(question, selectedCards);
+          }
+        });
+
+        cardGrid.appendChild(card);
+      }
+    }
+
+    async function beginReading(question, chosenCards) {
+      showScreen(thinkingScreen);
+
+      try {
+        const res = await fetch("/reading", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            question,
+            selectedCards: chosenCards
+          })
+        });
+
+        const data = await res.json();
+
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        readingText.textContent =
+          data.answer ||
+          data.error ||
+          "The spirits are quiet right now.";
+
+        showScreen(readingScreen);
+      } catch (error) {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        readingText.textContent = "Something went wrong while summoning the reading.";
+        showScreen(readingScreen);
+      } finally {
+        isTransitioning = false;
+      }
+    }
+
+    function restartReading() {
+      selectedCards = [];
+      errorText.textContent = "";
+      readingText.textContent = "";
+      questionInput.value = "";
+      updateSelectionUI();
+      showScreen(selectionScreen);
+    }
+
+    buildCards();
+    updateSelectionUI();
+  </script>
+</body>
+</html>

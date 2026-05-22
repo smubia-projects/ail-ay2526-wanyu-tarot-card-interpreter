@@ -1,0 +1,632 @@
+{
+  "The Fool": {
+    "upright": {
+      "core_meaning": "new beginnings, optimism, leap of faith",
+      "yes_no_weight": 1,
+      "love": "a fresh romantic chapter may begin",
+      "career": "a new opportunity or path may appear",
+      "study": "a new learning journey begins",
+      "decision": "a positive but uncertain step forward",
+      "progress": "progress comes through trying something new",
+      "general": "a new chapter is opening",
+      "advice": "be open to new experiences",
+      "positions": {
+        "love": {
+          "current_energy": "a fresh emotional possibility may appear",
+          "obstacle": "fear of uncertainty may hold things back",
+          "direction": "taking a chance may lead to growth"
+        },
+        "study": {
+          "current_energy": "new motivation to learn is emerging",
+          "obstacle": "lack of planning could slow progress",
+          "direction": "growth comes through curiosity"
+        },
+        "progress": {
+          "current_energy": "a new phase is starting",
+          "obstacle": "uncertainty about the path ahead",
+          "direction": "progress improves through exploration"
+        },
+        "general": {
+          "current_energy": "a new journey is beginning",
+          "obstacle": "fear of taking the first step",
+          "direction": "growth comes through openness"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "recklessness, hesitation",
+      "yes_no_weight": -1,
+      "love": "immaturity or unclear intentions",
+      "career": "unprepared choices may cause problems",
+      "study": "lack of focus may affect progress",
+      "decision": "it may not be the right moment",
+      "progress": "progress is inconsistent",
+      "general": "uncertainty may slow things down",
+      "advice": "pause and think carefully",
+      "positions": {
+        "love": {
+          "current_energy": "feelings may exist but feel unstable",
+          "obstacle": "uncertainty about intentions",
+          "direction": "clarity improves with patience"
+        },
+        "study": {
+          "current_energy": "motivation may feel scattered",
+          "obstacle": "poor planning or distraction",
+          "direction": "improvement comes with structure"
+        },
+        "progress": {
+          "current_energy": "movement exists but lacks direction",
+          "obstacle": "impulsive choices",
+          "direction": "progress improves with caution"
+        },
+        "general": {
+          "current_energy": "things feel uncertain",
+          "obstacle": "rushing decisions",
+          "direction": "clarity comes with reflection"
+        }
+      }
+    }
+  },
+
+  "The Magician": {
+    "upright": {
+      "core_meaning": "skill, manifestation, capability",
+      "yes_no_weight": 2,
+      "love": "strong attraction and initiative",
+      "career": "your abilities can create success",
+      "study": "you have the skills needed to succeed",
+      "decision": "the outcome is within your control",
+      "progress": "progress improves through effort",
+      "general": "you have the tools you need",
+      "advice": "use your abilities confidently",
+      "positions": {
+        "love": {
+          "current_energy": "strong attraction or chemistry",
+          "obstacle": "overthinking intentions",
+          "direction": "confidence can strengthen the connection"
+        },
+        "study": {
+          "current_energy": "you are capable of understanding the material",
+          "obstacle": "self-doubt may slow you down",
+          "direction": "results improve with focused effort"
+        },
+        "progress": {
+          "current_energy": "you have the ability to improve the situation",
+          "obstacle": "lack of confidence",
+          "direction": "success comes through action"
+        },
+        "general": {
+          "current_energy": "you have strong influence over the outcome",
+          "obstacle": "uncertainty about using your abilities",
+          "direction": "things improve when you take initiative"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "self doubt, misuse of power",
+      "yes_no_weight": -1,
+      "love": "mixed signals may create confusion",
+      "career": "skills are not fully used",
+      "study": "lack of confidence may affect performance",
+      "decision": "clarity is needed before acting",
+      "progress": "progress slows due to hesitation",
+      "general": "potential is not fully used",
+      "advice": "rebuild confidence in your abilities",
+      "positions": {
+        "general": {
+          "current_energy": "potential exists but feels hidden",
+          "obstacle": "self doubt or confusion",
+          "direction": "confidence helps unlock progress"
+        }
+      }
+    }
+  },
+
+  "The High Priestess": {
+    "upright": {
+      "core_meaning": "intuition, inner knowledge",
+      "yes_no_weight": 0,
+      "love": "hidden feelings or quiet connection",
+      "career": "observe before acting",
+      "study": "understanding grows through reflection",
+      "decision": "listen to your intuition",
+      "progress": "progress requires patience",
+      "general": "not everything is visible yet",
+      "advice": "trust your instincts",
+      "positions": {
+        "general": {
+          "current_energy": "quiet awareness is growing",
+          "obstacle": "uncertainty about what is hidden",
+          "direction": "clarity comes through patience"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "blocked intuition",
+      "yes_no_weight": -1,
+      "love": "misunderstood feelings",
+      "career": "confusion about direction",
+      "study": "difficulty focusing",
+      "decision": "things are unclear",
+      "progress": "progress feels uncertain",
+      "general": "intuition may be ignored",
+      "advice": "pause and reflect carefully",
+      "positions": {
+        "general": {
+          "current_energy": "intuition feels uncertain",
+          "obstacle": "ignoring inner guidance",
+          "direction": "clarity returns through reflection"
+        }
+      }
+    }
+  },
+
+  "The Empress": {
+    "upright": {
+      "core_meaning": "growth, abundance",
+      "yes_no_weight": 2,
+      "love": "nurturing connection",
+      "career": "creative growth",
+      "study": "supportive learning environment",
+      "decision": "choose what helps growth",
+      "progress": "steady improvement",
+      "general": "things are flourishing",
+      "advice": "embrace growth and creativity",
+      "positions": {
+        "general": {
+          "current_energy": "strong nurturing energy surrounds you",
+          "obstacle": "overdependence on others",
+          "direction": "growth continues steadily"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "blocked growth",
+      "yes_no_weight": -1,
+      "love": "emotional imbalance",
+      "career": "creative block",
+      "study": "lack of motivation",
+      "decision": "reconnect with purpose",
+      "progress": "growth feels slow",
+      "general": "energy feels stagnant",
+      "advice": "restore balance",
+      "positions": {
+        "general": {
+          "current_energy": "growth feels limited",
+          "obstacle": "lack of self-care",
+          "direction": "renewal begins with balance"
+        }
+      }
+    }
+  },
+
+  "The Emperor": {
+    "upright": {
+      "core_meaning": "structure, authority",
+      "yes_no_weight": 1,
+      "love": "stable and protective connection",
+      "career": "leadership and structure",
+      "study": "discipline brings results",
+      "decision": "take control of the situation",
+      "progress": "progress through planning",
+      "general": "order creates stability",
+      "advice": "stay disciplined",
+      "positions": {
+        "general": {
+          "current_energy": "strong structure supports progress",
+          "obstacle": "rigidity or strict thinking",
+          "direction": "stability leads to improvement"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "loss of control",
+      "yes_no_weight": -1,
+      "love": "power imbalance",
+      "career": "authority challenged",
+      "study": "lack of discipline",
+      "decision": "reconsider your approach",
+      "progress": "progress slowed by disorder",
+      "general": "structure feels unstable",
+      "advice": "rebuild discipline",
+      "positions": {
+        "general": {
+          "current_energy": "lack of structure",
+          "obstacle": "poor planning",
+          "direction": "stability must be restored"
+        }
+      }
+    }
+  },
+
+  "The Lovers": {
+    "upright": {
+      "core_meaning": "connection, harmony",
+      "yes_no_weight": 2,
+      "love": "strong emotional connection",
+      "career": "important partnership",
+      "study": "cooperation improves learning",
+      "decision": "choose what aligns with your values",
+      "progress": "progress through cooperation",
+      "general": "alignment and harmony",
+      "advice": "make choices with honesty",
+      "positions": {
+        "general": {
+          "current_energy": "strong connection or alignment",
+          "obstacle": "difficult choices",
+          "direction": "honest decisions lead to harmony"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "disharmony",
+      "yes_no_weight": -1,
+      "love": "tension or misunderstanding",
+      "career": "misaligned goals",
+      "study": "lack of motivation",
+      "decision": "conflicting priorities",
+      "progress": "progress slowed by conflict",
+      "general": "values feel misaligned",
+      "advice": "re-evaluate priorities",
+      "positions": {
+        "general": {
+          "current_energy": "tension or imbalance",
+          "obstacle": "conflicting expectations",
+          "direction": "clarity comes through reflection"
+        }
+      }
+    }
+  },
+
+  "The Chariot": {
+    "upright": {
+      "core_meaning": "determination, victory",
+      "yes_no_weight": 2,
+      "love": "progress through commitment",
+      "career": "drive leads to success",
+      "study": "discipline improves results",
+      "decision": "move forward confidently",
+      "progress": "strong momentum",
+      "general": "victory through determination",
+      "advice": "stay focused",
+      "positions": {
+        "study": {
+          "current_energy": "strong determination",
+          "obstacle": "distractions may slow you down",
+          "direction": "discipline leads to improvement"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "loss of direction",
+      "yes_no_weight": -1,
+      "love": "unclear relationship direction",
+      "career": "lack of focus",
+      "study": "difficulty staying disciplined",
+      "decision": "pause and reconsider",
+      "progress": "momentum disrupted",
+      "general": "progress feels blocked",
+      "advice": "regain focus",
+      "positions": {
+        "general": {
+          "current_energy": "direction feels uncertain",
+          "obstacle": "lack of control",
+          "direction": "focus restores progress"
+        }
+      }
+    }
+  },
+
+  "Strength": {
+    "upright": {
+      "core_meaning": "inner strength, resilience",
+      "yes_no_weight": 1,
+      "love": "compassion strengthens bonds",
+      "career": "patience leads to success",
+      "study": "confidence supports improvement",
+      "decision": "act with courage",
+      "progress": "steady growth",
+      "general": "quiet inner strength",
+      "advice": "stay calm and confident",
+      "positions": {
+        "study": {
+          "current_energy": "confidence supports learning",
+          "obstacle": "self doubt",
+          "direction": "progress through perseverance"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "self doubt",
+      "yes_no_weight": -1,
+      "love": "insecurity affecting connection",
+      "career": "lack of confidence",
+      "study": "feeling overwhelmed",
+      "decision": "regain inner balance",
+      "progress": "progress slowed by doubt",
+      "general": "confidence shaken",
+      "advice": "rebuild self belief",
+      "positions": {
+        "general": {
+          "current_energy": "confidence feels low",
+          "obstacle": "self doubt",
+          "direction": "strength grows through patience"
+        }
+      }
+    }
+  },
+
+  "The Moon": {
+    "upright": {
+      "core_meaning": "uncertainty, illusion",
+      "yes_no_weight": -1,
+      "love": "confusing emotions",
+      "career": "unclear situation",
+      "study": "uncertainty about understanding",
+      "decision": "things are unclear",
+      "progress": "progress feels confusing",
+      "general": "truth not fully visible",
+      "advice": "move carefully",
+      "positions": {
+        "general": {
+          "current_energy": "unclear situation",
+          "obstacle": "misunderstanding",
+          "direction": "clarity will appear slowly"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "clarity emerging",
+      "yes_no_weight": 0,
+      "love": "truth appearing",
+      "career": "confusion lifting",
+      "study": "understanding improving",
+      "decision": "things becoming clearer",
+      "progress": "uncertainty resolving",
+      "general": "fog lifting",
+      "advice": "trust the clarity appearing",
+      "positions": {
+        "general": {
+          "current_energy": "clarity emerging",
+          "obstacle": "lingering doubts",
+          "direction": "truth becomes clearer"
+        }
+      }
+    }
+  },
+
+  "The Sun": {
+    "upright": {
+      "core_meaning": "success, joy, clarity",
+      "yes_no_weight": 2,
+      "love": "warmth and happiness",
+      "career": "recognition and success",
+      "study": "confidence and strong understanding",
+      "decision": "very favorable outcome",
+      "progress": "strong improvement",
+      "general": "things are bright and positive",
+      "advice": "stay confident and open",
+      "positions": {
+        "general": {
+          "current_energy": "positive momentum is present",
+          "obstacle": "overconfidence",
+          "direction": "continued effort leads to success"
+        }
+      }
+    },
+    "reversed": {
+      "core_meaning": "temporary doubt",
+      "yes_no_weight": 1,
+      "love": "happiness possible but uncertain",
+      "career": "success slightly delayed",
+      "study": "confidence issues affecting results",
+      "decision": "positive but slower outcome",
+      "progress": "progress slower than expected",
+      "general": "positivity slightly dimmed",
+      "advice": "rebuild confidence",
+      "positions": {
+        "general": {
+          "current_energy": "things are improving slowly",
+          "obstacle": "doubt may slow progress",
+          "direction": "confidence restores momentum"
+        }
+      }
+    }
+  },
+
+
+  "The Hermit": {
+  "upright": {
+    "core_meaning": "reflection, wisdom, solitude",
+    "yes_no_weight": 0,
+    "love": "emotional distance or reflection",
+    "career": "reconsidering long-term direction",
+    "study": "deep thinking and self-study",
+    "decision": "wait and reflect before deciding",
+    "progress": "progress through careful reflection",
+    "general": "a period of introspection",
+    "advice": "slow down and think deeply",
+    "positions": {
+      "general": {
+        "current_energy": "a quiet period of reflection is present",
+        "obstacle": "isolation or overthinking",
+        "direction": "clarity comes through patience and reflection"
+      }
+    }
+  },
+  "reversed": {
+    "core_meaning": "loneliness, avoidance",
+    "yes_no_weight": -1,
+    "love": "emotional withdrawal",
+    "career": "feeling disconnected from direction",
+    "study": "difficulty focusing alone",
+    "decision": "avoiding necessary reflection",
+    "progress": "progress slowed by hesitation",
+    "general": "feeling lost or isolated",
+    "advice": "seek perspective from others",
+    "positions": {
+      "general": {
+        "current_energy": "a sense of isolation may appear",
+        "obstacle": "avoiding important reflection",
+        "direction": "reconnecting with others may help"
+      }
+    }
+  }
+},
+
+"The Wheel of Fortune": {
+  "upright": {
+    "core_meaning": "change, cycles, fate",
+    "yes_no_weight": 1,
+    "love": "a turning point in the relationship",
+    "career": "unexpected opportunities",
+    "study": "changes affecting academic direction",
+    "decision": "things may shift unexpectedly",
+    "progress": "momentum improving",
+    "general": "a shift in circumstances",
+    "advice": "adapt to change",
+    "positions": {
+      "general": {
+        "current_energy": "change is approaching",
+        "obstacle": "difficulty adjusting to new circumstances",
+        "direction": "things may improve unexpectedly"
+      }
+    }
+  },
+  "reversed": {
+    "core_meaning": "bad luck, resistance to change",
+    "yes_no_weight": -1,
+    "love": "repeating relationship patterns",
+    "career": "unexpected setbacks",
+    "study": "feeling stuck academically",
+    "decision": "timing may not be right",
+    "progress": "progress feels delayed",
+    "general": "things feel out of your control",
+    "advice": "focus on what you can control",
+    "positions": {
+      "general": {
+        "current_energy": "things feel unpredictable",
+        "obstacle": "resisting necessary change",
+        "direction": "improvement comes through flexibility"
+      }
+    }
+  }
+},
+
+"Justice": {
+  "upright": {
+    "core_meaning": "fairness, truth, balance",
+    "yes_no_weight": 1,
+    "love": "honesty is important",
+    "career": "fair outcomes through effort",
+    "study": "results reflect your preparation",
+    "decision": "make a balanced decision",
+    "progress": "progress through responsibility",
+    "general": "truth becomes clear",
+    "advice": "act with honesty",
+    "positions": {
+      "general": {
+        "current_energy": "fairness and truth are important now",
+        "obstacle": "bias or unfair thinking",
+        "direction": "clarity comes through honesty"
+      }
+    }
+  },
+  "reversed": {
+    "core_meaning": "unfairness, imbalance",
+    "yes_no_weight": -1,
+    "love": "misunderstandings may arise",
+    "career": "feeling treated unfairly",
+    "study": "results may feel disappointing",
+    "decision": "reconsider your judgment",
+    "progress": "progress slowed by imbalance",
+    "general": "things feel unfair",
+    "advice": "seek balance and clarity",
+    "positions": {
+      "general": {
+        "current_energy": "imbalance may be present",
+        "obstacle": "misjudging the situation",
+        "direction": "restoring fairness improves things"
+      }
+    }
+  }
+},
+
+"The Hanged Man": {
+  "upright": {
+    "core_meaning": "pause, perspective",
+    "yes_no_weight": 0,
+    "love": "things may feel temporarily paused",
+    "career": "reconsider your direction",
+    "study": "understanding improves through patience",
+    "decision": "wait before acting",
+    "progress": "progress requires patience",
+    "general": "a pause for reflection",
+    "advice": "look at things differently",
+    "positions": {
+      "general": {
+        "current_energy": "a pause may be necessary",
+        "obstacle": "resisting change in perspective",
+        "direction": "clarity comes with patience"
+      }
+    }
+  },
+  "reversed": {
+    "core_meaning": "stagnation",
+    "yes_no_weight": -1,
+    "love": "feeling stuck emotionally",
+    "career": "lack of progress",
+    "study": "difficulty moving forward",
+    "decision": "indecision causing delay",
+    "progress": "progress feels blocked",
+    "general": "stagnation may appear",
+    "advice": "reconsider your approach",
+    "positions": {
+      "general": {
+        "current_energy": "things feel stuck",
+        "obstacle": "unwillingness to change perspective",
+        "direction": "movement begins with new thinking"
+      }
+    }
+  }
+},
+
+"Death": {
+  "upright": {
+    "core_meaning": "transformation, endings",
+    "yes_no_weight": 0,
+    "love": "a relationship phase may end or change",
+    "career": "major transition",
+    "study": "changing academic direction",
+    "decision": "a major change may be necessary",
+    "progress": "progress through transformation",
+    "general": "a powerful change is occurring",
+    "advice": "accept transformation",
+    "positions": {
+      "general": {
+        "current_energy": "a major change is happening",
+        "obstacle": "fear of letting go",
+        "direction": "new beginnings follow endings"
+      }
+    }
+  },
+  "reversed": {
+    "core_meaning": "resistance to change",
+    "yes_no_weight": -1,
+    "love": "difficulty letting go",
+    "career": "fear of change",
+    "study": "holding onto outdated habits",
+    "decision": "avoiding necessary change",
+    "progress": "progress blocked by resistance",
+    "general": "change is being delayed",
+    "advice": "embrace transformation",
+    "positions": {
+      "general": {
+        "current_energy": "a change is overdue",
+        "obstacle": "fear of the unknown",
+        "direction": "growth comes through acceptance"
+      }
+    }
+  }
+}
+}
