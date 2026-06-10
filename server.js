@@ -1,22 +1,39 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const OpenAI = require("openai");
+const rateLimitMiddleware = require("./rateLimit");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080;
+
+const allowedOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(",").map((o) => o.trim())
+  : [];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
 });
 
 app.use(express.json());
-app.use(express.static("public"));
+// NOTE: do NOT serve the frontend from here. Cloud Run is API-only; the static
+// site lives on Vercel (see DOCS/ailodge/deployment-playbook.md "Backend must not
+// serve the frontend"). Serving public/ here spins billable Cloud Run instances for
+// static files and ships a broken config.js-less copy that falls back to localhost.
 
-/*
-Major Arcana cards
-The frontend sends numbers 1–22.
-We convert them to these card names.
-*/
 const majorArcana = [
   "The Fool",
   "The Magician",
@@ -39,52 +56,42 @@ const majorArcana = [
   "The Moon",
   "The Sun",
   "Judgement",
-  "The World"
+  "The World",
 ];
 
-/* Random upright / reversed orientation */
 function getRandomOrientation() {
   return Math.random() < 0.5 ? "upright" : "reversed";
 }
 
-/* Tarot reading endpoint */
-app.post("/reading", async (req, res) => {
-  try {
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
+app.post("/api/reading", rateLimitMiddleware, async (req, res) => {
+  try {
     const { question, selectedCards } = req.body;
 
     if (!question || !selectedCards || selectedCards.length !== 3) {
       return res.json({
-        error: "Please ask a question and select exactly 3 cards."
+        error: "Please ask a question and select exactly 3 cards.",
       });
     }
 
-    /*
-    Convert selected card numbers
-    into tarot cards
-    */
-
     const chosenCards = selectedCards.map((cardNumber, index) => {
-
       const cardName = majorArcana[cardNumber - 1];
-
       const role =
         index === 0
           ? "Current energy"
           : index === 1
-          ? "Obstacle or hidden factor"
-          : "Likely direction or advice";
+            ? "Obstacle or hidden factor"
+            : "Likely direction or advice";
 
       return {
         name: cardName,
         role: role,
-        orientation: getRandomOrientation()
+        orientation: getRandomOrientation(),
       };
     });
-
-    /*
-    Build AI prompt
-    */
 
     const prompt = `
 You are a witty tarot interpreter.
@@ -118,37 +125,27 @@ ${chosenCards[2].name} (${chosenCards[2].orientation})
 Role: ${chosenCards[2].role}
 `;
 
-    const response = await client.responses.create({
-      model: "gpt-4.1-mini",
-      input: prompt
+    const response = await client.chat.completions.create({
+      model: process.env.OPENROUTER_MODEL || "openai/gpt-4.1-mini",
+      messages: [{ role: "user", content: prompt }],
     });
 
-    /*
-    Remove accidental markdown symbols
-    */
-
-    const cleanAnswer = response.output_text
+    const cleanAnswer = response.choices[0].message.content
       .replace(/\*\*/g, "")
       .replace(/\*/g, "");
 
     res.json({
       answer: cleanAnswer,
-      cards: chosenCards
+      cards: chosenCards,
     });
-
   } catch (error) {
-
     console.error(error);
-
     res.json({
-      error: "The tarot spirits encountered an error."
+      error: "The tarot spirits encountered an error.",
     });
-
   }
 });
 
-/* Start server */
-
-app.listen(port, () => {
-  console.log(`Tarot server running at http://localhost:${port}`);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Tarot server running on port ${port}`);
 });

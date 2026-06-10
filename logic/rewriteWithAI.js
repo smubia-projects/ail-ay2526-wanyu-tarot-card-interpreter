@@ -2,7 +2,8 @@ require("dotenv").config();
 const OpenAI = require("openai");
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
 });
 
 async function rewriteWithAI(question, interpretations, verdict, categories) {
@@ -64,32 +65,32 @@ Advice: ${interpretations[2].advice}
 `;
 
   try {
-    console.log("[rewriteWithAI] Preparing OpenAI request...");
+    console.log("[rewriteWithAI] Preparing OpenRouter request...");
 
     const response = await Promise.race([
-      client.responses.create({
-        model: "gpt-5-mini",
-        input: [
+      client.chat.completions.create({
+        model: process.env.OPENROUTER_MODEL || "openai/gpt-4.1-mini",
+        messages: [
           { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt }
+          { role: "user", content: userPrompt },
         ],
-        max_output_tokens: 500
+        max_tokens: 500,
       }),
       new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("OpenAI request timed out after 20 seconds")), 20000)
-      )
+        setTimeout(() => reject(new Error("OpenRouter request timed out after 20 seconds")), 20000)
+      ),
     ]);
 
-    console.log("[rewriteWithAI] Response received from OpenAI");
+    console.log("[rewriteWithAI] Response received from OpenRouter");
 
-    if (response && response.output_text) {
-      return response.output_text;
+    if (response && response.choices && response.choices[0]) {
+      return response.choices[0].message.content;
     }
 
-    console.error("[rewriteWithAI] OpenAI returned no output_text");
+    console.error("[rewriteWithAI] OpenRouter returned no content");
     console.error(response);
   } catch (error) {
-    console.error("[rewriteWithAI] Error during OpenAI call:");
+    console.error("[rewriteWithAI] Error during OpenRouter call:");
     console.error(error);
   }
 
