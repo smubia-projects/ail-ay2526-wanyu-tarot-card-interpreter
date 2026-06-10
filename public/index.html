@@ -255,6 +255,152 @@
       100% { content: ""; }
     }
 
+    .rl-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rl-modal.active {
+      display: flex;
+    }
+
+    .rl-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+      animation: rlFadeIn 0.5s ease;
+    }
+
+    .rl-card {
+      position: relative;
+      width: min(420px, 92%);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+      animation: rlSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .rl-banner {
+      position: relative;
+      padding: 32px 24px 24px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .rl-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+    }
+
+    .rl-circle-1 {
+      width: 180px;
+      height: 180px;
+      background: white;
+      top: -40px;
+      right: -30px;
+    }
+
+    .rl-circle-2 {
+      width: 120px;
+      height: 120px;
+      background: white;
+      bottom: -20px;
+      left: -20px;
+    }
+
+    .rl-emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .rl-headline {
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .rl-description {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.5;
+    }
+
+    .rl-body {
+      background: #1a1a2e;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rl-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 14px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .rl-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .rl-btn-primary {
+      background: linear-gradient(135deg, #6d4aff, #3e1f7a);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(109, 74, 255, 0.35);
+    }
+
+    .rl-btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e0d8f0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .rl-arrow {
+      position: absolute;
+      right: 18px;
+      font-size: 1.1rem;
+    }
+
+    .rl-dismiss {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 8px;
+      margin-top: 4px;
+      text-align: center;
+    }
+
+    .rl-dismiss:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @keyframes rlFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rlSlideUp {
+      from { transform: scale(0.95) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
     @media (max-width: 700px) {
       h1 {
         font-size: 2.1rem;
@@ -311,7 +457,29 @@
     </div>
   </section>
 
+  <!-- Rate Limit CTA Modal -->
+  <div id="rateLimitModal" class="rl-modal" role="dialog" aria-modal="true">
+    <div id="rateLimitBackdrop" class="rl-backdrop"></div>
+    <div class="rl-card">
+      <div id="rlModalBanner" class="rl-banner">
+        <div class="rl-circle rl-circle-1"></div>
+        <div class="rl-circle rl-circle-2"></div>
+        <span id="rlModalEmoji" class="rl-emoji"></span>
+        <h2 id="rlModalHeadline" class="rl-headline"></h2>
+        <p id="rlModalDescription" class="rl-description"></p>
+      </div>
+      <div class="rl-body">
+        <a id="rlModalJoinBtn" class="rl-btn rl-btn-primary" href="#" target="_blank" rel="noopener">Join AI Lodge<span class="rl-arrow">&rarr;</span></a>
+        <a id="rlModalGithubBtn" class="rl-btn rl-btn-secondary" href="#" target="_blank" rel="noopener">Self-host from GitHub<span class="rl-arrow">&rarr;</span></a>
+        <a id="rlModalShowcaseBtn" class="rl-btn rl-btn-secondary" href="#" target="_blank" rel="noopener">Explore other projects<span class="rl-arrow">&rarr;</span></a>
+        <button class="rl-dismiss" onclick="dismissRateLimitModal()">Maybe later</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./config.js"></script>
   <script>
+    const API_BASE = window.VITE_API_BASE || 'http://localhost:8080';
     const totalCards = 22;
     const maxSelected = 3;
 
@@ -404,7 +572,7 @@
       showScreen(thinkingScreen);
 
       try {
-        const res = await fetch("/reading", {
+        const res = await fetch(`${API_BASE}/api/reading`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -414,6 +582,31 @@
             selectedCards: chosenCards
           })
         });
+
+        if (res.status === 429) {
+          let queriesUsed = 5;
+          try {
+            const errData = await res.json();
+            queriesUsed = errData.queries_used || 5;
+          } catch (_) {}
+          showRateLimitModal(queriesUsed);
+          showScreen(selectionScreen);
+          return;
+        }
+
+        // 503 = demo paused via the central kill switch. Distinct from the 429
+        // CTA: a paused demo is an operator action, not the user hitting a limit.
+        if (res.status === 503) {
+          let msg = "This demo is temporarily paused. Please check back soon.";
+          try {
+            const errData = await res.json();
+            if (errData && errData.message) msg = errData.message;
+          } catch (_) {}
+          await new Promise(resolve => setTimeout(resolve, 1200));
+          readingText.textContent = "⏸️ " + msg;
+          showScreen(readingScreen);
+          return;
+        }
 
         const data = await res.json();
 
@@ -442,6 +635,41 @@
       updateSelectionUI();
       showScreen(selectionScreen);
     }
+
+    const CTA_CONFIG = {
+      name: "Tarot Card Interpreter",
+      emoji: "\u{1F52E}",
+      accentColor: "#6d4aff",
+      headline: "The spirits have spoken enough!",
+      description: "This demo interpreted {count} tarot readings for you. Want to explore more mystical AI projects?",
+      programme: "AI Lodge",
+      programmeLink: "https://www.smubia.com/ai-lodge",
+      githubLink: "https://github.com/smubia-projects/ail-ay2526-s2-wanyu-tarot-card-interpreter",
+      showcaseLink: "https://www.smubia.com/showcase"
+    };
+
+    function showRateLimitModal(queriesUsed) {
+      const desc = CTA_CONFIG.description.replace("{count}", queriesUsed);
+      document.getElementById("rlModalEmoji").textContent = CTA_CONFIG.emoji;
+      document.getElementById("rlModalHeadline").textContent = CTA_CONFIG.headline;
+      document.getElementById("rlModalDescription").textContent = desc;
+      document.getElementById("rlModalJoinBtn").href = CTA_CONFIG.programmeLink;
+      document.getElementById("rlModalJoinBtn").textContent = `Join ${CTA_CONFIG.programme}`;
+      document.getElementById("rlModalGithubBtn").href = CTA_CONFIG.githubLink;
+      document.getElementById("rlModalShowcaseBtn").href = CTA_CONFIG.showcaseLink;
+
+      const banner = document.getElementById("rlModalBanner");
+      banner.style.background = `linear-gradient(135deg, ${CTA_CONFIG.accentColor}, ${CTA_CONFIG.accentColor}99)`;
+
+      const modal = document.getElementById("rateLimitModal");
+      modal.classList.add("active");
+    }
+
+    function dismissRateLimitModal() {
+      document.getElementById("rateLimitModal").classList.remove("active");
+    }
+
+    document.getElementById("rateLimitBackdrop").addEventListener("click", dismissRateLimitModal);
 
     buildCards();
     updateSelectionUI();
